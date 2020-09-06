@@ -11,7 +11,7 @@ state = {
 
 app = dash.Dash()
 
-app.layout = html.Div(id='container', children=[
+app.layout = html.Div(id='container',style={"background":"#F9F9F9"}, children=[
     html.H1(
         children='NPM Dashboard',
         style={
@@ -45,9 +45,9 @@ app.layout = html.Div(id='container', children=[
     ),
     html.Div(id='dates'),
     html.Button('Submit', id='submit-pkg', n_clicks=0),
-    html.Div(id='stats', children=[
-        html.Div("No Data.")
-    ]),
+    html.Div(id='stats', children='No Data.', style={
+        'textAlign': 'center',
+    }),
 ])
 
 
@@ -93,6 +93,8 @@ def get_view(view_type, value, from_date, until_date):
     trends_x, trends_y = npm_stat.get_trends(data)
 
     fig = go.Figure(data=[go.Scatter(x=trends_x, y=trends_y)], layout={
+        "plot_bgcolor": "#F9F9F9",
+        "paper_bgcolor": "#F9F9F9",
         'title': 'Downloads trends over time.'})
 
     return [dcc.Graph(
@@ -102,7 +104,9 @@ def get_view(view_type, value, from_date, until_date):
                 {"x": top10_x, "y": top10_y, 'type': 'bar', 'name': 'downloads'}
             ],
             'layout': {
-                'title': 'Top 10 downloaded packages.'
+                'title': 'Top 10 downloaded packages.',
+                "plot_bgcolor": "#F9F9F9",
+                "paper_bgcolor": "#F9F9F9"
             }
         }
     ),
