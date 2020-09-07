@@ -70,7 +70,7 @@ def header():
                 [
                     html.A(
                         html.Button("Github", id="learn-more-button"),
-                        href="https://github.com",
+                        href="https://github.com/niradler/npm-dash",
                     )
                 ],
                 className="one-third column",
