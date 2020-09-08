@@ -1,7 +1,6 @@
 import dash_core_components as dcc
 import dash_html_components as html
 import plotly.graph_objs as go
-from datetime import datetime as dt
 import npm_stat
 
 
@@ -97,11 +96,15 @@ def options():
             className="one-third column"
         ),
         html.Button(
-            'Submit', id='submit-pkg', n_clicks=0,  className=" one-third column")
+            'Submit', id='submit-pkg', n_clicks=0,  className="one-third column")
     ])
 
 
 def stats(data):
+    if len(data.index) == 0:
+        return html.P("No data found, please try again.")
+    total, monthly_avg, monthly_min, monthly_max = npm_stat.get_aggregate_stats(
+        data)
     top10_x, top10_y = npm_stat.get_top10(data)
     trends_x, trends_y = npm_stat.get_trends(data)
     fig = go.Figure(data=[go.Scatter(x=trends_x, y=trends_y)], layout={
@@ -137,24 +140,24 @@ def stats(data):
                     html.Div(
                         [
                             html.Div(
-                                [html.H6("152"),
+                                [html.H6(total),
                                  html.P("Total")],
                                 id="total",
                                 className="mini_container",
                             ),
                             html.Div(
-                                [html.H6("20"),
-                                 html.P("monthly min")],
+                                [html.H6(monthly_min),
+                                 html.P("Monthly min")],
                                 id="monthly min",
                                 className="mini_container",
                             ), html.Div(
-                                [html.H6("100"),
-                                 html.P("monthly avg")],
+                                [html.H6(monthly_avg),
+                                 html.P("Monthly avg")],
                                 id="monthly avg",
                                 className="mini_container",
                             ), html.Div(
-                                [html.H6("152"),
-                                 html.P("monthly max")],
+                                [html.H6(monthly_max),
+                                 html.P("Monthly max")],
                                 id="monthly max",
                                 className="mini_container",
                             )

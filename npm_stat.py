@@ -2,6 +2,7 @@ import json
 from datetime import date
 import requests
 import pandas as pd
+import numpy as np
 
 
 def to_dataFrame(raw):
@@ -60,3 +61,17 @@ def get_trends(df):
     y = [x[0] for x in y]
 
     return x, y
+
+
+def get_aggregate_stats(df):
+    df["month"] = ['{}-{}'.format(v.split("-")[0], v.split("-")[1])
+                   for v in df["date"].values]
+    total = df["downloads"].sum()
+    monthly_df = df.groupby(["month"])
+    downloads_per_month = monthly_df.sum()["downloads"].values.tolist()
+    np_downloads_per_month = np.array(downloads_per_month)
+    monthly_avg = np.average(np_downloads_per_month)
+    monthly_min = np.min(np_downloads_per_month)
+    monthly_max = np.max(np_downloads_per_month)
+
+    return total, monthly_avg, monthly_min, monthly_max

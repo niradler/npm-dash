@@ -1,12 +1,10 @@
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
-import plotly.graph_objs as go
-from datetime import datetime as dt
-import npm_stat
-import components
 from flask import send_from_directory
 import os
+import npm_stat
+import components
 
 state = {
     "type": "author"
@@ -32,7 +30,6 @@ app.layout = html.Div(
         ),
         components.header(),
         components.options(),
-        # components.layout(),
         html.Div(id="output", style={'display': 'none'}, children=[
             html.Div(id='display-value'),
             html.Div(id='dates'),
