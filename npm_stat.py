@@ -5,6 +5,11 @@ import pandas as pd
 import numpy as np
 
 
+def to_fixed(num, l=2):
+    i, d = str(num).split('.')
+    return float('{}.{}'.format(i, d[:l]))
+
+
 def to_dataFrame(raw):
     dates = []
     names = []
@@ -74,4 +79,4 @@ def get_aggregate_stats(df):
     monthly_min = np.min(np_downloads_per_month)
     monthly_max = np.max(np_downloads_per_month)
 
-    return total, monthly_avg, monthly_min, monthly_max
+    return total, to_fixed(monthly_avg), monthly_min, monthly_max
