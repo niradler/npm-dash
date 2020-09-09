@@ -1,0 +1,6 @@
+{
+  "version": 2,
+  "name": "npm-dash",
+  "builds": [{ "src": "*.py", "use": "@liudonghua123/now-flask" }],
+  "routes": [{ "src": "/.*", "dest": "/" }]
+}
